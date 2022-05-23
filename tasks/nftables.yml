@@ -1,0 +1,59 @@
+---
+
+- name: Install nftables
+  package:
+    name: nftables
+    state: present
+    update_cache: true
+  register: pkg_install_result
+  until: pkg_install_result is success
+  retries: 5
+  delay: 10
+
+- name: Create include directories
+  file:
+    path: /etc/nftables.d/{{ item }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - ""
+    - "pre"
+    - "custom"
+    - "post"
+
+- name: Create main nftables configuration
+  template:
+    src: nftables.conf.j2
+    dest: /etc/nftables.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: ['Reload nftables service']
+
+- name: Enable nftables Debian systemd service unit
+  systemd:
+    name: nftables
+    enabled: true
+  notify: ['Reload nftables service']
+
+- name: Add pre templates
+  template:
+    src: "{{ item }}"
+    dest: "/etc/nftables.d/pre/{{ item | basename | regex_replace('.j2','') }}.nft"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ lookup('fileglob', 'templates/pre/*_*.j2', wantlist=True) }}"
+  notify: ['Reload nftables service']
+
+- name: Add post templates
+  template:
+    src: "{{ item }}"
+    dest: "/etc/nftables.d/post/{{ item | basename | regex_replace('.j2','') }}.nft"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ lookup('fileglob', 'templates/post/*_*.j2', wantlist=True) }}"
+  notify: ['Reload nftables service']

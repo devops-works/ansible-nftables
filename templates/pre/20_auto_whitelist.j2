@@ -1,0 +1,15 @@
+#!/usr/sbin/nft -f
+
+{% import 'defines.j2' as var with context %}
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+{% if var.friends_v4 | length > 0 %}
+        ip saddr $nft_ansible_friends_v4 counter accept comment "Accept friends in v4"
+{% endif %}
+{% if var.friends_v6 | length > 0 %}
+        ip6 saddr $nft_ansible_friends_v6 counter accept comment "Accept friends in v6"
+{% endif %}
+    }
+}

@@ -1,0 +1,23 @@
+
+{# required to avoid empty set #}
+{% set __src_ipset_v4 = [ ] %}
+{% set __src_ipset_v6 = [ ] %}
+{% for element in item.saddrs %}
+{%   if element | ansible.netcommon.ipv4 %}
+{%     set _ = __src_ipset_v4.append(element) %}
+{%   endif %}
+{%   if element | ansible.netcommon.ipv6 %}
+{%     set _ = __src_ipset_v6.append(element) %}
+{%   endif %}
+{% endfor %}
+
+table inet filter {
+    chain input {
+{% if __src_ipset_v4 | length > 0 %}
+      {{ item.protocol }} dport { {{ item.dports | join(", ") }} } ip saddr { {{ __src_ipset_v4 | join(", ") }} } counter accept comment "accept v4"
+{% endif %}
+{% if __src_ipset_v6 | length > 0 %}
+      {{ item.protocol }} dport { {{ item.dports | join(", ") }} } ip6 saddr { {{ __src_ipset_v6 | join(", ") }} } counter accept comment "accept v6"
+{% endif %}
+    }
+}

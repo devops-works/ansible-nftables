@@ -1,0 +1,10 @@
+---
+- name: Add custom rule
+  template:
+    src: "input_rule.j2"
+    dest: "/etc/nftables.d/custom/{{ item.weight }}_{{ item.name }}.nft"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ nft_add_input_rule }}"
+  notify: ['Reload nftables service']

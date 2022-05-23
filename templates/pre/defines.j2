@@ -1,0 +1,30 @@
+{# required to avoid empty set #}
+{% set controllers_v4 = [ ] %}
+{% set controllers_v6 = [ ] %}
+{% for element in ferm_ansible_controllers + nft_ansible_controllers %}
+{%   if element | ansible.netcommon.ipv4 %}
+{%     set _ = controllers_v4.append(element) %}
+{%   endif %}
+{%   if element | ansible.netcommon.ipv6 %}
+{%     set _ = controllers_v6.append(element) %}
+{%   endif %}
+{% endfor %}
+
+# Auto whitelisting
+{%   set friends_v4 = [ ] -%}
+{%   set friends_v6 = [ ] -%}
+{% if nft_auto_whitelist %}
+{%-  for node in groups.all %}
+# {{ node }} 
+{%    if 'ansible_all_ipv4_addresses' in hostvars[node] %}
+{%-      for ip in hostvars[node].ansible_all_ipv4_addresses %}
+{%-        set _ = friends_v4.append(ip) -%}
+{%       endfor -%}
+{%     endif -%}
+{%    if 'ansible_all_ipv6_addresses' in hostvars[node] %}
+{%-      for iface in hostvars[node].ansible_all_ipv6_addresses %}
+{%-        set _ = friends_v6.append(iface) -%}
+{%       endfor -%}
+{%     endif -%}
+{%   endfor %}
+{% endif %}

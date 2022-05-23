@@ -1,0 +1,10 @@
+#!/usr/sbin/nft -f
+
+# base rules added by this role
+include "/etc/nftables.d/pre/*.nft"
+
+# additionnal rules added by other roles
+include "/etc/nftables.d/custom/*.nft"
+
+# additionnal rules added by other roles
+include "/etc/nftables.d/post/*.nft"

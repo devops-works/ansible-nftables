@@ -1,0 +1,19 @@
+#!/usr/sbin/nft -f
+
+table inet filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+		counter comment "count dropped packets"
+	}
+
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		counter comment "count dropped packets"
+	}
+
+	# If you're not counting packets, this chain can be omitted.
+	chain output {
+		type filter hook output priority 0; policy accept;
+		counter comment "count accepted packets"
+	}
+}

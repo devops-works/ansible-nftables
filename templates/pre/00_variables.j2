@@ -1,0 +1,19 @@
+#!/usr/sbin/nft -f
+
+{% import 'defines.j2' as var with context %}
+
+{% if var.controllers_v4 | length > 0 %}
+define nft_ansible_controllers_v4 = { {{ var.controllers_v4 | join(", ") }} }
+{% endif %}
+
+{% if var.controllers_v6 | length > 0 %}
+define nft_ansible_controllers_v6 = { {{ var.controllers_v6 | join(", ") }} }
+{% endif %}
+
+{% if var.friends_v4 | length > 0 %}
+define nft_ansible_friends_v4 = { {{ var.friends_v4 | join(", ") }} }
+{% endif %}
+
+{% if var.friends_v6 | length > 0 %}
+define nft_ansible_friends_v6 = { {{ var.friends_v6 | join(", ") }} }
+{% endif %}

@@ -1,0 +1,27 @@
+---
+- include_tasks:
+    file: nftables.yml
+    apply:
+      tags: ["nftables","ferm"]
+  when: nft_add_input_rule is not defined
+  tags:
+    - always
+
+- include_tasks:
+    file: input_rule.yml
+    apply:
+      tags: ["nftables","ferm"]
+  when: nft_add_input_rule is defined
+  tags:
+    - always
+
+# Compat with previous ferm role
+- include_tasks:
+    file: input_rule.yml
+    apply:
+      tags: ["nftables","ferm"]
+  vars:
+    nft_add_input_rule: "{{ ferm_input_group_list }}"
+  when: ferm_input_group_list is defined
+  tags:
+    - always

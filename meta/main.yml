@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: nftables
+  namespace: devopsworks
+  author: Michel Blanc
+  description: nftables role
+  company: devops.works
+  license: MIT
+  min_ansible_version: "2.12"
+
+  platforms:
+  - name: Debian
+    versions:
+      - "bullseye"
+  galaxy_tags:
+    - networking
+
+dependencies: []

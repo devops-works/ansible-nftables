@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+
+  - name: systemd-debian-latest
+    image: jrei/systemd-debian:latest
+    command: /sbin/init
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
+      - /tmp
+
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

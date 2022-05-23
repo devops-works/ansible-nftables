@@ -1,0 +1,5 @@
+---
+- name: Reload nftables service
+  systemd:
+    name: nftables
+    state: restarted
