@@ -1,7 +1,7 @@
 {# required to avoid empty set #}
 {% set controllers_v4 = [ ] %}
 {% set controllers_v6 = [ ] %}
-{% for element in ferm_ansible_controllers + nft_ansible_controllers %}
+{% for element in nft_ansible_controllers %}
 {%   if element | ansible.netcommon.ipv4 %}
 {%     set _ = controllers_v4.append(element) %}
 {%   endif %}
