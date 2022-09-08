@@ -11,11 +11,16 @@
 {%   endif %}
 {% endfor %}
 
-table inet filter {
-    chain input {
+table ip filter {
+    chain INPUT {
 {% if __src_ipset_v4 | length > 0 %}
       {{ item.protocol }} dport { {{ item.dports | join(", ") }} } ip saddr { {{ __src_ipset_v4 | join(", ") }} } counter accept comment "{{ item.comment | default('accept v4') }}"
 {% endif %}
+    }
+}
+
+table ip6 filter {
+    chain INPUT {
 {% if __src_ipset_v6 | length > 0 %}
       {{ item.protocol }} dport { {{ item.dports | join(", ") }} } ip6 saddr { {{ __src_ipset_v6 | join(", ") }} } counter accept comment "{{ item.comment | default('accept v6') }}"
 {% endif %}
