@@ -1,4 +1,9 @@
-# nftable roles
+# nftable role
+
+| Branch        | Status          |
+| :-----------: | :-------------: |
+| [master](https://github.com/devops-works/ansible-nftables) | ![Build status](https://github.com/devops-works/ansible-nftables/actions/workflows/test.yml
+/badge.svg) |
 
 ## Variables
 
