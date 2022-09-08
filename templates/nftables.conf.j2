@@ -1,5 +1,7 @@
 #!/usr/sbin/nft -f
 
+flush ruleset
+
 # base rules added by this role
 include "/etc/nftables.d/pre/*.nft"
 
