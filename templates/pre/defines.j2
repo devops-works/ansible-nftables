@@ -2,10 +2,10 @@
 {% set controllers_v4 = [ ] %}
 {% set controllers_v6 = [ ] %}
 {% for element in nft_ansible_controllers %}
-{%   if element | ansible.netcommon.ipv4 %}
+{%   if element | ansible.utils.ipv4 %}
 {%     set _ = controllers_v4.append(element) %}
 {%   endif %}
-{%   if element | ansible.netcommon.ipv6 %}
+{%   if element | ansible.utils.ipv6 %}
 {%     set _ = controllers_v6.append(element) %}
 {%   endif %}
 {% endfor %}
