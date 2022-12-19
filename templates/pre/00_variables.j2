@@ -10,15 +10,18 @@ define nft_ansible_controllers_v4 = {
 
 {% if var.controllers_v6 | length > 0 %}
 define nft_ansible_controllers_v6 = { 
-    {{ var.controllers_v6 | sort | unique | join(",\n    ") }} }
+    {{ var.controllers_v6 | sort | unique | join(",\n    ") }}
+}
 {% endif %}
 
 {% if var.friends_v4 | length > 0 %}
 define nft_ansible_friends_v4 = { 
-    {{ var.friends_v4 | sort | unique | join(",\n    ") }} }
+    {{ var.friends_v4 | sort | unique | join(",\n    ") }}
+}
 {% endif %}
 
 {% if var.friends_v6 | length > 0 %}
 define nft_ansible_friends_v6 = { 
-    {{ var.friends_v6 | sort | unique | join(",\n    ") }} }
+    {{ var.friends_v6 | sort | unique | join(",\n    ") }}
+}
 {% endif %}
