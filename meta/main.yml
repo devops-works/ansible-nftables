@@ -6,12 +6,16 @@ galaxy_info:
   description: nftables role
   company: devops.works
   license: MIT
-  min_ansible_version: "2.12"
+  min_ansible_version: "2.15"
 
   platforms:
   - name: Debian
     versions:
       - "bullseye"
+      - "bookworm"
+  - name: Ubuntu
+    versions:
+      - "noble"
   galaxy_tags:
     - networking
 

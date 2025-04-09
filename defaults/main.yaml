@@ -2,4 +2,4 @@
 nft_ansible_controllers_v4: []
 nft_ansible_controllers_v6: []
 nft_auto_whitelist: false
-nft_ssh_ports: [22,22222]
+nft_ssh_ports: [22, 22222]
