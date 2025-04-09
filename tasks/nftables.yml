@@ -9,7 +9,6 @@
   retries: 5
   delay: 10
 
-
 - name: Install nftables
   ansible.builtin.package:
     name: python3-netaddr
@@ -53,6 +52,7 @@
     name: ufw
     enabled: false
     state: stopped
+  failed_when: false
 
 - name: Add pre templates
   ansible.builtin.template:
