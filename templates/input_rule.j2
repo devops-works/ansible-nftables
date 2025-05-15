@@ -3,10 +3,10 @@
 {% set __src_ipset_v4 = [ ] %}
 {% set __src_ipset_v6 = [ ] %}
 {% for element in item.saddrs %}
-{%   if element | ansible.netcommon.ipv4 %}
+{%   if element | ansible.utils.ipv4 %}
 {%     set _ = __src_ipset_v4.append(element) %}
 {%   endif %}
-{%   if element | ansible.netcommon.ipv6 %}
+{%   if element | ansible.utils.ipv6 %}
 {%     set _ = __src_ipset_v6.append(element) %}
 {%   endif %}
 {% endfor %}
