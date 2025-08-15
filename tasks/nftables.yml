@@ -9,7 +9,7 @@
   retries: 5
   delay: 10
 
-- name: Install nftables
+- name: Install python3-netaddr
   ansible.builtin.package:
     name: python3-netaddr
     state: present
