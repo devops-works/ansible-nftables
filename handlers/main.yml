@@ -3,3 +3,4 @@
   ansible.builtin.systemd:
     name: nftables
     state: restarted
+  when: nft_allow_reload | default(false)

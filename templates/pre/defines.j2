@@ -28,3 +28,11 @@
 {%     endif -%}
 {%   endfor %}
 {% endif %}
+
+{% if nft_whitelist_rfc1918 %}
+{%- set _ = friends_v4.append('10.0.0.0/8') -%}
+{%- set _ = friends_v4.append('172.16.0.0/12') -%}
+{%- set _ = friends_v4.append('192.168.0.0/16') -%}
+{%- set _ = friends_v6.append('fd00::/8') -%}
+{% endif %}
+
